@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		043654C12420002E003437B4 /* FlagAPIFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043654C02420002E003437B4 /* FlagAPIFunctions.swift */; };
 		0492D7F8241FA953007AE0AA /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0492D7F7241FA953007AE0AA /* MainView.swift */; };
 		0492D7FA241FAB0B007AE0AA /* CoronaTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0492D7F9241FAB0B007AE0AA /* CoronaTable.swift */; };
 		04C32BE3241F117B00CC95C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04C32BE2241F117B00CC95C9 /* AppDelegate.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		043654C02420002E003437B4 /* FlagAPIFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagAPIFunctions.swift; sourceTree = "<group>"; };
 		0492D7F7241FA953007AE0AA /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		0492D7F9241FAB0B007AE0AA /* CoronaTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoronaTable.swift; sourceTree = "<group>"; };
 		04C32BDF241F117B00CC95C9 /* tenxor corona tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tenxor corona tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				04C32BFA241F239C00CC95C9 /* CoronaAPIFunctions.swift */,
+				043654C02420002E003437B4 /* FlagAPIFunctions.swift */,
 			);
 			path = APICall;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 				04C32BE3241F117B00CC95C9 /* AppDelegate.swift in Sources */,
 				04C32BE5241F117B00CC95C9 /* SceneDelegate.swift in Sources */,
 				04C32BE7241F117B00CC95C9 /* CoronaCollection.swift in Sources */,
+				043654C12420002E003437B4 /* FlagAPIFunctions.swift in Sources */,
 				04C32BF8241F12C500CC95C9 /* Int.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -333,7 +337,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = coronavirusAPI;
 				PRODUCT_NAME = "tenxor corona tracker";
 				SWIFT_VERSION = 5.0;
@@ -354,7 +358,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = coronavirusAPI;
 				PRODUCT_NAME = "tenxor corona tracker";
 				SWIFT_VERSION = 5.0;

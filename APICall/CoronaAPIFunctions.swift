@@ -96,6 +96,7 @@ class CoronaAPIFunctions{
 //        let name = country.name
         let latitude = country.coordinates.lat
         let infection = country.total
+        let countryCode = country.countryCode
         let deathsPack = db.deaths.countries.first { (country) -> Bool in
             return country.coordinates.lat == latitude
         }
@@ -105,7 +106,7 @@ class CoronaAPIFunctions{
         }
         let recovered = recoveredPack?.total ?? 0
         
-        return CoronaData(country: country.name, infections: infection, death: death, recovered: recovered)
+        return CoronaData(country: country.name, infections: infection, death: death, recovered: recovered, code: countryCode)
     }
 }
 
@@ -134,12 +135,15 @@ struct Country:Codable {
     var total:Int
     var province:String
     var coordinates:Coordinates
+    var countryCode:String
     
     enum CodingKeys: String, CodingKey {
         case name = "country"
         case total = "latest"
+        case countryCode = "country_code"
         case coordinates
         case province
+        
     }
 }
 

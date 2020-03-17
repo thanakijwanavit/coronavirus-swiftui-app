@@ -16,7 +16,7 @@ struct CoronaCollection: View {
             VStack{
             Form{
                 Section{
-                    ForEach(0..<self.coronaDataList.data.count/2 , id: \.self){firstIndex in
+                    ForEach(0..<self.coronaDataList.data.count , id: \.self){firstIndex in
                         CollectionCell(width: g.size.width-20, index_: firstIndex)
                     }
                     .padding(.bottom)
@@ -36,9 +36,13 @@ struct CollectionCell:View {
     var corona:CoronaData{let mutableself = self; return mutableself.coronaDataList.data[index_]}
     var body: some View {
         VStack(spacing: 20){
-            Text(self.corona.country)
-                .font(.largeTitle)
-                .frame(width: width-50, alignment: .center)
+            HStack{
+                ImageCell(imageName: self.corona.code)
+                Text(self.corona.country)
+                    .font(.largeTitle)
+                
+            }
+                .frame(width: width-50, alignment: .leading)
             
             HStack{
                 HStack {
@@ -79,50 +83,45 @@ struct CollectionCell:View {
     }
 }
 
-
-
-struct MainRow: View {
-    @State var coronaData:CoronaData
+class ImageLoader: ObservableObject{
+    @Published var image:UIImage
     
-    var body: some View {
-        GeometryReader { g in
-            HStack(alignment: .firstTextBaseline ,spacing:g.size.width/20){
-                Text(self.coronaData.country)
-                    .frame(width: g.size.width/5, alignment: .leading)
-                    .font(.system(size: g.size.width * 0.038, weight: .semibold, design: .rounded))
-                Text(self.coronaData.infections.string)
-                    .frame(width: g.size.width/5)
-                Text(self.coronaData.death.string)
-                    .frame(width: g.size.width/5)
-                Text(self.coronaData.recovered.string)
-                    .frame(width: g.size.width/5)
-
-                }
-                .padding()
-                .font(.system(size: g.size.width * 0.038, weight: .light, design: .rounded))
+    init(imageName:String) {
+        self.image = UIImage(named: "US")!
+        self.updateImage(imageName: imageName) { (image) in
+            guard let image = image else { debugPrint("updateImage returns nil");return}
+            DispatchQueue.main.async {
+                self.image = image
+            }
+        }
+    }
+    func updateImage(imageName:String, completion: @escaping (UIImage?)->Void){
+        DispatchQueue.global(qos: .background).async {
+            if let image = FlagApiFunctions.getFlag(name: imageName){
+                completion(image)
+            }
+            else {
+                debugPrint("error loading image")
+            }
         }
     }
 }
-struct HeaderRow: View {
+
+
+
+struct ImageCell: View{
+    @ObservedObject var imageLoader :ImageLoader
+    
+    init(imageName:String){
+        self.imageLoader = ImageLoader(imageName: imageName)
+    }
     
     var body: some View {
-        GeometryReader { g in
-            HStack(alignment: .firstTextBaseline ,spacing:g.size.width/20){
-                Text("Country")
-                    .frame(width: g.size.width/5, alignment: .leading)
-                Text("Infection")
-                    .frame(width: g.size.width/5)
-                Text("Death")
-                    .frame(width: g.size.width/5)
-                Text("Recovered")
-                    .frame(width: g.size.width/5)
-
-                }
-                .padding()
-                .font(.system(size: g.size.width * 0.038, weight: .bold, design: .rounded))
-        }
+        Image(uiImage: imageLoader.image)
+            .padding()
     }
 }
+
 
 
 #if DEBUG
@@ -193,6 +192,8 @@ struct CoronaData : Hashable {
     var infections: Int
     var death: Int
     var recovered: Int
+    var code:String = "US"
+    var flag: UIImage = UIImage(named: "US")!
     func hash(into hasher: inout Hasher) {
         hasher.combine(country)
     }
